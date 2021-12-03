@@ -7,25 +7,49 @@ pub struct Day1;
 impl Day1 {
     pub fn run() {
         let count = count_depth_increase("./assets/day1.txt");
-        print!("Number of depth increased: {}", count);
+        print!("Number of depth increased: {}\n", count);
+
+        let count_2 = count_depth_window_increase("./assets/day1.txt");
+        print!("Number of sum depth increased: {}\n", count_2);
     }
 }
 
 fn count_depth_increase(filename: impl AsRef<Path>) -> i32 {
-    let mut count: i32 = 0;
     if let Ok(lines) = read_lines(filename) {
-        let mut last_line = "".to_string();
+        let mut depths = Vec::new();
         for line in lines {
             if let Ok(depth) = line {
-                if !last_line.is_empty() {
-                    let last_depth: i32 = last_line.parse().unwrap();
-                    let current_depth: i32 = depth.parse().unwrap();
-                    if current_depth > last_depth {
-                        count = count + 1;
-                    }
-                }
-                last_line = depth;
+                depths.push(depth.parse().unwrap());
             }
+        }
+        return count_int_increased(depths);
+    }
+    0
+}
+
+fn count_depth_window_increase(filename: impl AsRef<Path>) -> i32 {
+    if let Ok(lines) = read_lines(filename) {
+        let mut depths: Vec<i32> = Vec::new();
+        for line in lines {
+            if let Ok(depth) = line {
+                depths.push(depth.parse().unwrap());
+            }
+        }
+        let mut mean_depth = Vec::new();
+        for i in 2..depths.len() {
+            let sum = depths[i] + depths[i - 1] + depths[i - 2];
+            mean_depth.push(sum);
+        }
+        return count_int_increased(mean_depth);
+    }
+    0
+}
+
+fn count_int_increased(ints: Vec<i32>) -> i32 {
+    let mut count = 0;
+    for i in 1..ints.len() {
+        if ints[i - 1] < ints[i] {
+            count = count + 1;
         }
     }
     count
@@ -35,6 +59,12 @@ fn count_depth_increase(filename: impl AsRef<Path>) -> i32 {
 fn test_day1() {
     let count = count_depth_increase("./assets/day1_test.txt");
     assert_eq!(count, 7);
+}
+
+#[test]
+fn test_day1_2() {
+    let count = count_depth_window_increase("./assets/day1_test.txt");
+    assert_eq!(count, 5);
 }
 
 // The output is wrapped in a Result to allow matching on errors
