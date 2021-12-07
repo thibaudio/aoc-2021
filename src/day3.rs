@@ -139,7 +139,7 @@ fn from_vec_to_string(input: Vec<bool>) -> String {
     return out;
 }
 
-fn print_vect(input: Vec<Vec<bool>>) {
+fn _print_vect(input: Vec<Vec<bool>>) {
     for i in 0..input.len() {
         print!("{}\n", from_vec_to_string(input[i].clone()));
     }

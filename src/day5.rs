@@ -2,7 +2,6 @@ use regex::Regex;
 use std::cmp;
 use std::fs::File;
 use std::io::{self, BufRead};
-use std::ops::Range;
 use std::path::Path;
 
 pub struct Day5;
@@ -99,7 +98,7 @@ impl Grid {
         return count;
     }
 
-    fn draw(self) {
+    fn _draw(self) {
         for j in 0..self.points[0].len() {
             for i in 0..self.points.len() {
                 print!("{} ", self.points[i][j].count);
@@ -158,9 +157,9 @@ fn init_grid(input: Vec<Vent>) -> Grid {
         }
     }
     let mut grid = Grid { points: Vec::new() };
-    for i in min_x..=max_x {
+    for _ in min_x..=max_x {
         let mut col: Vec<GridPoint> = Vec::new();
-        for j in min_y..=max_y {
+        for _ in min_y..=max_y {
             col.push(GridPoint::default())
         }
         grid.points.push(col);
@@ -182,7 +181,7 @@ fn test_day5_part2() {
     let mut grid = init_grid(vents.clone());
     grid.parse_h_and_v_lines(vents.clone());
     grid.parse_diag_lines(vents);
-    grid.clone().draw();
+    grid.clone()._draw();
     assert_eq!(12, grid.compute_overlap());
 }
 // The output is wrapped in a Result to allow matching on errors
