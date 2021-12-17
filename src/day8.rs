@@ -1,16 +1,13 @@
 use bimap::BiMap;
+use std::fs::File;
+use std::io::{self, BufRead};
 use std::path::Path;
-use std::{collections::HashMap, fs::File};
-use std::{
-    collections::HashSet,
-    io::{self, BufRead},
-};
 
 pub struct Day8;
 
 impl Day8 {
     pub fn run() {
-        let mut patterns = load_input("./assets/day8.txt");
+        let patterns = load_input("./assets/day8.txt");
         let mut count = 0;
         for p in patterns {
             let mut d = Decoder::new();
@@ -181,7 +178,6 @@ fn contains_char(a: &String, b: Vec<char>) -> bool {
 struct Pattern {
     signal: Vec<String>,
     display: Vec<String>,
-    decoded_display: Vec<Option<i32>>,
 }
 
 impl Pattern {
@@ -189,7 +185,6 @@ impl Pattern {
         Pattern {
             signal: Vec::new(),
             display: Vec::new(),
-            decoded_display: vec![None, None, None, None],
         }
     }
 }
@@ -218,7 +213,7 @@ fn load_input(filename: impl AsRef<Path>) -> Vec<Pattern> {
 
 #[test]
 fn test_day8_part2() {
-    let mut patterns = load_input("./assets/day8_test.txt");
+    let patterns = load_input("./assets/day8_test.txt");
     let mut count = 0;
     for p in patterns {
         let mut d = Decoder::new();

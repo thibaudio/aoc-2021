@@ -35,7 +35,7 @@ impl Octopus {
 
     fn reset(&mut self) {
         if !self.flashed {
-            return
+            return;
         }
         self.energy = 0;
         self.flashed = false;
@@ -130,9 +130,7 @@ fn load_input(filename: impl AsRef<Path>) -> Grid {
             }
         }
     }
-    Grid {
-        data: input
-    }
+    Grid { data: input }
 }
 
 fn day11_part1(filename: impl AsRef<Path>) -> i32 {
@@ -145,17 +143,15 @@ fn day11_part1(filename: impl AsRef<Path>) -> i32 {
     return total;
 }
 
-
 fn day11_part2(filename: impl AsRef<Path>) -> i32 {
     let mut grid = load_input(filename);
     let mut step = 0;
     loop {
-        step +=1 ;
+        step += 1;
         if grid.simulate() == 100 {
             return step;
         }
     }
-    0;
 }
 
 #[test]
