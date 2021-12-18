@@ -24,6 +24,10 @@ mod day12;
 use day12::Day12;
 mod day13;
 use day13::Day13;
+mod day14;
+use day14::Day14;
+mod day15;
+use day15::Day15;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -49,6 +53,8 @@ fn main() {
         11 => Day11::run(),
         12 => Day12::run(),
         13 => Day13::run(),
+        14 => Day14::run(),
+        15 => Day15::run(),
         _ => panic!("Day not implemented"),
     }
 }

@@ -1,4 +1,4 @@
-use std::collections::{HashMap, VecDeque};
+use std::collections::VecDeque;
 use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
@@ -76,9 +76,9 @@ fn print(dots: &Vec<(usize, usize)>) {
 
     let mut grid = Vec::<Vec<char>>::new();
 
-    for i in 0..max {
+    for _ in 0..max {
         let mut grid_line = Vec::<char>::new();
-        for j in 0..max {
+        for _ in 0..max {
             grid_line.push('.');
         }
         grid.push(grid_line);
@@ -113,11 +113,6 @@ fn day13_part2(filename: impl AsRef<Path>) -> i32 {
 #[test]
 fn test_day13_part1() {
     assert_eq!(17, day13_part1("./assets/day13_test.txt"));
-}
-
-#[test]
-fn test_day13_part2() {
-    assert_eq!(36, day13_part2("./assets/day13_test.txt"));
 }
 
 // The output is wrapped in a Result to allow matching on errors
